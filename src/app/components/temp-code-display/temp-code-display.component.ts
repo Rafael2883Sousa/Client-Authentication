@@ -10,13 +10,20 @@ import { CommonModule } from '@angular/common';
 })
 export class TempCodeDisplayComponent implements OnInit, OnDestroy {
   tempCode: string = '';
-  intervalId: any;
+  intervalId: any; 
+  timeRemaining: number = 30; 
+
 
   ngOnInit() {
     this.generateTempCode();
     this.intervalId = setInterval(() => {
-      this.generateTempCode();
-    }, 30000);
+      if (this.timeRemaining > 0) {
+        this.timeRemaining--; 
+      } else {
+        this.generateTempCode();
+        this.timeRemaining = 30; 
+      }
+    }, 1000);
   }
 
   ngOnDestroy() {

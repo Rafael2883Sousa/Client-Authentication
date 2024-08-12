@@ -7,7 +7,10 @@
     <label for="clientCode">Client Code:</label>
     <input type="text" id="clientCode" [(ngModel)]="clientCode" name="clientCode"/>
 
-    <button (click)="validateCode()">Validate</button>
+    <button (click)="validateCode()" [disabled]="isSubmitting">
+      <span *ngIf="!isSubmitting">Submit</span>
+      <span *ngIf="isSubmitting">Submitting...</span>
+    </button>
 
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>

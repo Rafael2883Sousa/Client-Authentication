@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   templateUrl: './temp-code-validation.component.html',
   styleUrls: ['./temp-code-validation.component.css']
-})
+}) 
 export class TempCodeValidationComponent implements OnInit {
   clientName: string = ''; // Stores the client's name from the route parameter
   tempCode: string = ''; // Stores the generated temporary code
@@ -26,8 +26,11 @@ export class TempCodeValidationComponent implements OnInit {
 
   // Method to generate a random temporary code
   generateTempCode() {
-    this.tempCode = Math.random().toString(36).substr(2, 8).toUpperCase();
-  }
+    const array = new Uint32Array(2);
+    crypto.getRandomValues(array);
+    this.tempCode = Array.from(array, num => num.toString(36)).join('').substr(0, 8).toUpperCase();
+  } // Fills an array of numbers with cryptographically secure values, then converted them to base-36 strings (which include digits 0-9 and letters a-z) and truncated to 8 characters.
+  
 
   // Method to validate the user's input against the temporary code
   validateTempCode() {

@@ -14,17 +14,21 @@ interface Client {
   providedIn: 'root'
 })
 export class ClientService {
-  private clientsUrl = '../assets/clients.json'; // Path to the JSON file containing client data
+  private clientsUrl = 'assets/clients.json'; // Path to the JSON file containing client data
 
   constructor(private http: HttpClient) { }
 
   // Method to fetch all clients from the JSON file
-  getClients(): Observable<{ [key: string]: Client }> { 
-    console.log( 'Log in screen ',this.http.get<any>('assets/clients.json')
-    /*this.http.get<{ [key: string]: Client }>(this.clientsUrl)*/ );
-    return this.http.get<any>('assets/clients.json');
-    //return this.http.get<{ [key: string]: Client }>(this.clientsUrl);
+
+  getClients(): Observable<{ [key: string]: Client }> {
+    return this.http.get<{ [key: string]: Client }>(this.clientsUrl);
   }
+  // getClients(): Observable<{ [key: string]: Client }> { 
+  //   //console.log( 'Log in screen ',this.http.get<any>('assets/clients.json')
+  //   /*this.http.get<{ [key: string]: Client }>(this.clientsUrl)*/ //);
+  //   return this.http.get<any>('assets/clients.json');
+  //   //return this.http.get<{ [key: string]: Client }>(this.clientsUrl);
+  // }
 
   // Method to validate the client name and code
   validateClient(name: string, code: string): Observable<boolean> {
