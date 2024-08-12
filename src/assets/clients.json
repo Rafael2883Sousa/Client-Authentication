@@ -1,0 +1,20 @@
+{
+	"ABL": {
+		"internal_code_required" : true,
+		"internal_code" : "IUFBE2B38NBFVD",
+		"external_code_required" : true,
+		"external_code" : "DUFBEU38D2"
+	},
+	
+	"CVL" : {
+		"internal_code_required" : false,
+		"external_code_required" : false
+	},
+	
+	"VSW" : {
+		"internal_code_required" : true,
+		"internal_code" : "23FN38FN34F",
+		"external_code_required" : true,
+		"external_code" : "FDFVB34343"
+	}
+}

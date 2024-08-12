@@ -1,0 +1,21 @@
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #28a745; /* Green color for the button */
+}
+
+button:hover {
+  background-color: #218838; /* Darker green on hover */
+}

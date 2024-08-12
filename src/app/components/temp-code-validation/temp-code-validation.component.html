@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Temporary Code for {{ clientName }}</h2>
+    <p>Temporary Code: {{ tempCode }}</p>
+    
+    <label for="userInputCode">Enter Temporary Code:</label>
+    <input type="text" id="userInputCode" [(ngModel)]="userInputCode" name="userInputCode"/>
+    
+    <button (click)="validateTempCode()">Validate</button>
+  
+    <p class="success" *ngIf="isValid">Code is valid!</p>
+    <p class="error" *ngIf="!isValid && errorMessage">{{ errorMessage }}</p>
+  </div>
+  

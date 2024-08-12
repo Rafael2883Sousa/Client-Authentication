@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Client Code Input</h2>
+  <form>
+    <label for="clientName">Client Name:</label>
+    <input type="text" id="clientName" [(ngModel)]="clientName" name="clientName"/>
+
+    <label for="clientCode">Client Code:</label>
+    <input type="text" id="clientCode" [(ngModel)]="clientCode" name="clientCode"/>
+
+    <button (click)="validateCode()">Validate</button>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</div> 
