@@ -2,10 +2,10 @@
   <h2>Client Code Input</h2>
   <form>
     <label for="clientName">Client Name:</label>
-    <input type="text" id="clientName" [(ngModel)]="clientName" name="clientName"/>
+    <input type="text" id="clientName" [(ngModel)]="clientName" [attr.aria-invalid]="errorMessage ? true : null" [attr.aria-describedby]="errorMessage ? 'clientNameError' : null" name="clientName" />
 
     <label for="clientCode">Client Code:</label>
-    <input type="text" id="clientCode" [(ngModel)]="clientCode" name="clientCode"/>
+    <input type="text" id="clientCode" [(ngModel)]="clientCode" [attr.aria-invalid]="errorMessage ? true : null" [attr.aria-describedby]="errorMessage ? 'clientCodeError' : null" name="clientCode" />
 
     <button (click)="validateCode()" [disabled]="isSubmitting">
       <span *ngIf="!isSubmitting">Submit</span>
@@ -15,3 +15,4 @@
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 </div> 
+ 

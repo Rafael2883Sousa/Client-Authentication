@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-
+import { TempCodeValidationComponent } from '../temp-code-validation/temp-code-validation.component';
+import { TempCodeService } from '../../services/temp-code.service';
 
 @Component({
   selector: 'app-client-code-input',
@@ -19,11 +20,15 @@ export class ClientCodeInputComponent {
   clientCode: string = ''; // Stores the client's code input
   errorMessage: string = ''; // Stores error messages if validation fails
   isSubmitting: boolean = false; // Indicates whether a submission is in progress
+  tempCode: string = ''; // Stores the temporary code generated after validation
+  userInputTempCode: string = ''; // Stores the user's input for the temporary code
+  isValidated: boolean = false; // Indicates if the client has been validated
+  intervalId: any; // Stores the ID of the interval timer
+  timeRemaining: number = 30; // Timer for code regeneration
 
-  constructor(private clientService: ClientService, private router: Router) { }
+  constructor(private clientService: ClientService, private tempCodeService: TempCodeService, private router: Router) { }
 
   // Method to validate the client's name and code
-  
   validateCode() {
     this.isSubmitting = true; // Disable button when submission starts
     this.clientService.validateClient(this.clientName, this.clientCode)
@@ -35,9 +40,11 @@ export class ClientCodeInputComponent {
         })
       )
       .subscribe(isValid => {
+        this.isSubmitting = false; // Re-enable button after submission ends
         if (isValid) {
-          this.isSubmitting = false; // Re-enable button after submission ends
           this.errorMessage = ''; // Clear error message if valid
+          this.isValidated = true; // Mark the client as validated
+          this.tempCode = this.tempCodeService.generateTempCode(); // Generate the temporary code
           console.log('Valid'); //for debugging purposes
           this.router.navigate(['/temp-code', { name: this.clientName }]); // Redirect to the temporary code page
         } else {
@@ -45,5 +52,10 @@ export class ClientCodeInputComponent {
         }
       });
   }
+  // generateTempCode() {
+  //   const array = new Uint32Array(2);
+  //   crypto.getRandomValues(array);
+  //   this.tempCode = Array.from(array, num => num.toString(36)).join('').substr(0, 8).toUpperCase();
+  // }
   
 }
