@@ -2,10 +2,10 @@
   <h2>Client Code Input</h2>
   <form>
     <label for="clientName">Client Name:</label>
-    <input type="text" id="clientName" [(ngModel)]="clientName" [attr.aria-invalid]="errorMessage ? true : null" [attr.aria-describedby]="errorMessage ? 'clientNameError' : null" name="clientName" />
+    <input type="text" id="clientName" [(ngModel)]="clientName" name="clientName" />
 
     <label for="clientCode">Client Code:</label>
-    <input type="text" id="clientCode" [(ngModel)]="clientCode" [attr.aria-invalid]="errorMessage ? true : null" [attr.aria-describedby]="errorMessage ? 'clientCodeError' : null" name="clientCode" />
+    <input type="text" id="clientCode" [(ngModel)]="clientCode" name="clientCode" />
 
     <button (click)="validateCode()" [disabled]="isSubmitting">
       <span *ngIf="!isSubmitting">Submit</span>
@@ -16,7 +16,13 @@
 
     <div *ngIf="isValidated">
       <p>Temporary Code: <strong>{{ tempCode }}</strong></p>
+      <p>Next code will be generated in: <strong>{{ timeRemaining }}</strong> seconds</p>
+      <label for="userInputTempCode">Enter Temporary Code:</label>
+      <input type="text" id="userInputTempCode" [(ngModel)]="userInputTempCode" name="userInputTempCode"/>
+      <button (click)="validateTempCode()">Validate</button>
+      <p class="success" *ngIf="isValid">Code is valid!</p>
+      <p class="error" *ngIf="!isValid && errorMessage">{{ errorMessage }}</p>
     </div>
   </form>
 </div> 
-  
+   

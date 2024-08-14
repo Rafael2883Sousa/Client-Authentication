@@ -26,14 +26,4 @@ export class TempCodeValidationComponent implements OnInit {
     this.tempCode = this.tempCodeService.generateTempCode(); // Generate a temporary code
   }
 
-  // Method to validate the user's input against the temporary code
-  validateTempCode() {
-    if (this.userInputCode === this.tempCode) {
-      this.isValid = true; // Set to true if the code matches
-      this.errorMessage = ''; // Clear error message if valid
-    } else {
-      this.isValid = false; // Set to false if the code doesn't match
-      this.errorMessage = 'Invalid temporary code.'; // Show error message if invalid
-    }
-  }
 }

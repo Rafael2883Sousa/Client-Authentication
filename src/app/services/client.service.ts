@@ -23,12 +23,6 @@ export class ClientService {
   getClients(): Observable<{ [key: string]: Client }> {
     return this.http.get<{ [key: string]: Client }>(this.clientsUrl);
   }
-  // getClients(): Observable<{ [key: string]: Client }> { 
-  //   //console.log( 'Log in screen ',this.http.get<any>('assets/clients.json')
-  //   /*this.http.get<{ [key: string]: Client }>(this.clientsUrl)*/ //);
-  //   return this.http.get<any>('assets/clients.json');
-  //   //return this.http.get<{ [key: string]: Client }>(this.clientsUrl);
-  // }
 
   // Method to validate the client name and code
   validateClient(name: string, code: string): Observable<boolean> {

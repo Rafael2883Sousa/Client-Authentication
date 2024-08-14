@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientService } from '../../services/client.service';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TempCodeService } from '../../services/temp-code.service';
+import { TempCodeValidationComponent } from '../temp-code-validation/temp-code-validation.component';
 
 @Component({
   selector: 'app-client-code-input',
@@ -14,7 +15,7 @@ import { TempCodeService } from '../../services/temp-code.service';
   templateUrl: './client-code-input.component.html',
   styleUrls: ['./client-code-input.component.css']
 })
-export class ClientCodeInputComponent {
+export class ClientCodeInputComponent implements OnDestroy {
   clientName: string = ''; // Stores the client's name input
   clientCode: string = ''; // Stores the client's code input
   errorMessage: string = ''; // Stores error messages if validation fails
@@ -24,6 +25,7 @@ export class ClientCodeInputComponent {
   isValidated: boolean = false; // Indicates if the client has been validated
   intervalId: any; // Stores the ID of the interval timer
   timeRemaining: number = 30; // Timer for code regeneration
+  isValid: boolean = false; // Indicates whether the user's input matches the temporary code
 
   constructor(private clientService: ClientService, private tempCodeService: TempCodeService, private router: Router) { }
 
@@ -43,13 +45,47 @@ export class ClientCodeInputComponent {
         if (isValid) {
           this.errorMessage = ''; // Clear error message if valid
           this.isValidated = true; // Mark the client as validated
-          this.tempCode = this.tempCodeService.generateTempCode(); // Generate the temporary code
+          this.generateTempCode(); // Generate the temporary code
           console.log('Valid'); //for debugging purposes
-          this.router.navigate(['/temp-code', { name: this.clientName }]); // Redirect to the temporary code page
+          // this.router.navigate(['/temp-code', { name: this.clientName }]); // Redirect to the temporary code page
+          this.startTimer(); // Start the timer for code regeneration
         } else {
           this.errorMessage = 'Invalid client name or code.'; // Show error message if invalid
         }
       });
   }
-   
+
+  generateTempCode() {
+    this.tempCode = this.tempCodeService.generateTempCode();
+  }
+
+  // Method to start the countdown timer for code regeneration
+  startTimer() {
+    this.intervalId = setInterval(() => {
+      if (this.timeRemaining > 0) {
+        this.timeRemaining--;
+      } else {
+        this.generateTempCode();
+        this.timeRemaining = 30;
+      }
+    }, 1000);
+  }
+
+  // Method to validate the user's input against the temporary code
+  validateTempCode() {
+    if (this.userInputTempCode === this.tempCode) {
+      this.isValid = true; // Set to true if the code matches
+      this.errorMessage = ''; // Clear error message if valid
+    } else {
+      this.isValid = false; // Set to false if the code doesn't match
+      this.errorMessage = 'Invalid temporary code.'; // Show error message if invalid
+    }
+  }
+
+  // Method to clear the timer when the component is destroyed
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
+  }
 }
+   
+
