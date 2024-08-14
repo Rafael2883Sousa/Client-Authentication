@@ -13,6 +13,10 @@
     </button>
 
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <div *ngIf="isValidated">
+      <p>Temporary Code: <strong>{{ tempCode }}</strong></p>
+    </div>
   </form>
 </div> 
- 
+  

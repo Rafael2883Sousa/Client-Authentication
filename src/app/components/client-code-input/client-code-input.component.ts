@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { TempCodeValidationComponent } from '../temp-code-validation/temp-code-validation.component';
 import { TempCodeService } from '../../services/temp-code.service';
 
 @Component({
@@ -52,10 +51,5 @@ export class ClientCodeInputComponent {
         }
       });
   }
-  // generateTempCode() {
-  //   const array = new Uint32Array(2);
-  //   crypto.getRandomValues(array);
-  //   this.tempCode = Array.from(array, num => num.toString(36)).join('').substr(0, 8).toUpperCase();
-  // }
-  
+   
 }
