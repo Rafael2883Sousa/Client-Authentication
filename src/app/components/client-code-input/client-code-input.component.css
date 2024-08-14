@@ -23,3 +23,7 @@ button {
 button:hover {
   background-color: #218838; /* Darker green on hover */
 }
+
+#htempCode {
+  margin-top: 10px;
+}

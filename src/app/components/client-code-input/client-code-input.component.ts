@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TempCodeService } from '../../services/temp-code.service';
-import { TempCodeValidationComponent } from '../temp-code-validation/temp-code-validation.component';
 
 @Component({
   selector: 'app-client-code-input',
@@ -15,7 +14,7 @@ import { TempCodeValidationComponent } from '../temp-code-validation/temp-code-v
   templateUrl: './client-code-input.component.html',
   styleUrls: ['./client-code-input.component.css']
 })
-export class ClientCodeInputComponent implements OnDestroy {
+export class ClientCodeInputComponent {
   clientName: string = ''; // Stores the client's name input
   clientCode: string = ''; // Stores the client's code input
   errorMessage: string = ''; // Stores error messages if validation fails
@@ -61,6 +60,10 @@ export class ClientCodeInputComponent implements OnDestroy {
 
   // Method to start the countdown timer for code regeneration
   startTimer() {
+
+    if(this.intervalId){
+      clearInterval(this.intervalId);
+    }
     this.intervalId = setInterval(() => {
       if (this.timeRemaining > 0) {
         this.timeRemaining--;
@@ -82,10 +85,6 @@ export class ClientCodeInputComponent implements OnDestroy {
     }
   }
 
-  // Method to clear the timer when the component is destroyed
-  ngOnDestroy() {
-    clearInterval(this.intervalId);
-  }
 }
    
 

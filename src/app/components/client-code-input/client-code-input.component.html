@@ -14,8 +14,8 @@
 
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
 
-    <div *ngIf="isValidated">
-      <p>Temporary Code: <strong>{{ tempCode }}</strong></p>
+    <div *ngIf="isValidated" >
+      <p id="htempCode">Temporary Code: <strong>{{ tempCode }}</strong></p>
       <p>Next code will be generated in: <strong>{{ timeRemaining }}</strong> seconds</p>
       <label for="userInputTempCode">Enter Temporary Code:</label>
       <input type="text" id="userInputTempCode" [(ngModel)]="userInputTempCode" name="userInputTempCode"/>
