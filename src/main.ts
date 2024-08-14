@@ -7,7 +7,8 @@ import { appRoutes } from './app/app.routes';
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(withInterceptorsFromDi()), // Provide HTTP client with interceptors
-    appRoutes // Provide application routes
+    appRoutes 
   ]
 })
-.catch(err => console.error(err)); // Log errors to the console
+.catch(err => console.error(err)); 
+ 
